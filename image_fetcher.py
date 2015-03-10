@@ -57,31 +57,19 @@ def download_image(link, file_path, name):
     f.close()
 
 def main():
-    # TO DO:
-    # 1.get the seed_url from the command line arguments
-    args = sys.argv
-    # if len(args) != 2:
-    #     print("Please pass a seed url to crawl.\nSample usage: python "
-    #           "crawl.py http://example.com/")
 
-    # else:
-    #     # 2.crawl_path = crawl(seed_url)
+    args = sys.argv
+
     seed_url = args[1]
     folder = os.path.expanduser(args[2])
     crawl_path = extract_images(seed_url)
 
-    print(crawl_path)
+    counts = len(crawl_path)
 
-    #     # 3.print out all the urls in crawl_path to a file called crawled.txt
-    #     #   in the working directory.  Make sure you print one url per line.
-    #     with open(OUT_FILE,'w') as out_file:
-    #         for path in crawl_path:
-    #             out_file.write(path+"\n")
-                
-    # download_image("http://dummyimage.com/100", "/Users/mat/Desktop", "1")
     
     count = 1
     for image_path in crawl_path:
+      print("Downloading ({:d}/{:d}): {:s}".format(count, counts, image_path))
       try:
         download_image(image_path, folder, count)
         count += 1
@@ -89,8 +77,6 @@ def main():
         print("Cannot download", image_path)
 
     print("Finished operation")
-
-
 
 
 if __name__ == '__main__':
